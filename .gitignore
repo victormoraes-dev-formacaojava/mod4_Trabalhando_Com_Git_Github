@@ -1,0 +1,12 @@
+# IDE
+.vscode/
+
+# Build e SO
+target/
+out/
+*.class
+.DS_Store
+
+# Logs e configs locais
+*.log
+.env
