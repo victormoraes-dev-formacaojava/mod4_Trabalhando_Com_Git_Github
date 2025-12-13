@@ -7,10 +7,34 @@ public class GerenciadorNotas {
     private static final int MIN_ALUNOS = 1;
 
     public static void main(String[] args) {
+        
         Scanner scanner = new Scanner(System.in);
         int quantidadeAlunos = lerQuantidadeAlunos(scanner);
-        // Aqui virão as próximas etapas
+        double[] todasNotas = lerNotasAlunos(scanner, quantidadeAlunos);
+        double media = calcularMedia(todasNotas, todasNotas.length);
+        exibirFeedback(media);
+
         scanner.close();
+    }
+
+    private static double calcularMedia(double[] notas, int totalNotas) {
+        double soma = 0;
+        for (double nota : notas) {
+            soma += nota;
+        }
+        return soma / totalNotas; // totalNotas = notas.length
+    }
+
+    // E para feedback
+    private static void exibirFeedback(double media) {
+        System.out.printf("Média da turma: %.2f\n", media);
+        if (media >= 7.0) {
+            System.out.println("Parabéns! A turma está aprovada.");
+        } else if (media >= 5.0) {
+            System.out.println("Atenção: A turma precisa de recuperação.");
+        } else {
+            System.out.println("Alerta: A turma está reprovada. Hora de revisar!");
+        }
     }
 
     // Método para ler e validar quantidade de alunos
