@@ -12,9 +12,29 @@ public class GerenciadorNotas {
         int quantidadeAlunos = lerQuantidadeAlunos(scanner);
         double[] todasNotas = lerNotasAlunos(scanner, quantidadeAlunos);
         double media = calcularMedia(todasNotas, todasNotas.length);
-        exibirFeedback(media);
+        gerarRelatorio(todasNotas, media);
 
         scanner.close();
+    }
+
+    private static void gerarRelatorio(double[] notas, double media) {
+        double maior = encontrarMaiorNota(notas);
+        double menor = encontrarMenorNota(notas);
+
+        System.out.println("\n=== Relatório da Turma ===");
+        System.out.printf("Média geral: %.2f\n", media);
+        System.out.printf("Maior nota: %.2f\n", maior);
+        System.out.printf("Menor nota: %.2f\n", menor);
+
+        // Feedback da turma
+        if (media >= 7.0) {
+            System.out.println("Situação: Turma aprovada!");
+        } else if (media >= 5.0) {
+            System.out.println("Situação: Turma em recuperação. Vamos ajustar!");
+        } else {
+            System.out.println("Situação: Turma reprovada. Hora de reforço!");
+        }
+        System.out.println("========================\n");
     }
 
     private static double calcularMedia(double[] notas, int totalNotas) {
