@@ -7,7 +7,7 @@ public class GerenciadorNotas {
     private static final int MIN_ALUNOS = 1;
 
     public static void main(String[] args) {
-        
+
         Scanner scanner = new Scanner(System.in);
         int quantidadeAlunos = lerQuantidadeAlunos(scanner);
         double[] todasNotas = lerNotasAlunos(scanner, quantidadeAlunos);
@@ -23,6 +23,34 @@ public class GerenciadorNotas {
             soma += nota;
         }
         return soma / totalNotas; // totalNotas = notas.length
+    }
+
+    // Método para maior nota
+    private static double encontrarMaiorNota(double[] notas) {
+        if (notas.length == 0) {
+            return 0.0; // Caso edge, mas não deve acontecer
+        }
+        double maior = notas[0];
+        for (double nota : notas) { // For-each para simplicidade
+            if (nota > maior) {
+                maior = nota;
+            }
+        }
+        return maior;
+    }
+
+    // Método para menor nota
+    private static double encontrarMenorNota(double[] notas) {
+        if (notas.length == 0) {
+            return 0.0;
+        }
+        double menor = notas[0];
+        for (double nota : notas) {
+            if (nota < menor) {
+                menor = nota;
+            }
+        }
+        return menor;
     }
 
     // E para feedback
