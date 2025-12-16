@@ -3,18 +3,58 @@ package formacaojava.victormoraes.dev;
 import java.util.Scanner;
 
 public class GerenciadorNotas {
+
     private static final int MAX_ALUNOS = 50;
     private static final int MIN_ALUNOS = 1;
 
     public static void main(String[] args) {
-        
         Scanner scanner = new Scanner(System.in);
-        int quantidadeAlunos = lerQuantidadeAlunos(scanner);
-        double[] todasNotas = lerNotasAlunos(scanner, quantidadeAlunos);
-        double media = calcularMedia(todasNotas, todasNotas.length);
-        exibirFeedback(media);
+        String opcao;
 
-        scanner.close();
+        try {
+            do {
+                // Fluxo principal da Parte 1
+                int quantidadeAlunos = lerQuantidadeAlunos(scanner);
+                double[] todasNotas = lerNotasAlunos(scanner, quantidadeAlunos);
+                double media = calcularMedia(todasNotas, todasNotas.length);
+                gerarRelatorio(todasNotas, media);
+
+                // Pergunta para repetir
+                do {
+                    System.out.print("Deseja processar outra turma? (s/n): ");
+                    opcao = scanner.next().toLowerCase().trim();
+                    if (!opcao.equals("s") && !opcao.equals("n")) {
+                        System.out.println("Por favor, digite 's' para sim ou 'n' para não.");
+                    }
+                } while (!opcao.equals("s") && !opcao.equals("n"));
+            } while (opcao.equals("s"));
+        } catch (Exception e) {
+            System.err.println("Um erro inesperado ocorreu: " + e.getMessage());
+            System.out.println("O programa será encerrado.");
+        } finally {
+            System.out.println("Obrigado por usar o Gerenciador de Notas! Até logo!");
+            scanner.close();
+        }
+    }
+
+    private static void gerarRelatorio(double[] notas, double media) {
+        double maior = encontrarMaiorNota(notas);
+        double menor = encontrarMenorNota(notas);
+
+        System.out.println("\n=== Relatório da Turma ===");
+        System.out.printf("Média geral: %.2f\n", media);
+        System.out.printf("Maior nota: %.2f\n", maior);
+        System.out.printf("Menor nota: %.2f\n", menor);
+
+        // Feedback da turma
+        if (media >= 7.0) {
+            System.out.println("Situação: Turma aprovada!");
+        } else if (media >= 5.0) {
+            System.out.println("Situação: Turma em recuperação. Vamos ajustar!");
+        } else {
+            System.out.println("Situação: Turma reprovada. Hora de reforço!");
+        }
+        System.out.println("========================\n");
     }
 
     private static double calcularMedia(double[] notas, int totalNotas) {
@@ -23,6 +63,34 @@ public class GerenciadorNotas {
             soma += nota;
         }
         return soma / totalNotas; // totalNotas = notas.length
+    }
+
+    // Método para maior nota
+    private static double encontrarMaiorNota(double[] notas) {
+        if (notas.length == 0) {
+            return 0.0; // Caso edge, mas não deve acontecer
+        }
+        double maior = notas[0];
+        for (double nota : notas) { // For-each para simplicidade
+            if (nota > maior) {
+                maior = nota;
+            }
+        }
+        return maior;
+    }
+
+    // Método para menor nota
+    private static double encontrarMenorNota(double[] notas) {
+        if (notas.length == 0) {
+            return 0.0;
+        }
+        double menor = notas[0];
+        for (double nota : notas) {
+            if (nota < menor) {
+                menor = nota;
+            }
+        }
+        return menor;
     }
 
     // E para feedback
