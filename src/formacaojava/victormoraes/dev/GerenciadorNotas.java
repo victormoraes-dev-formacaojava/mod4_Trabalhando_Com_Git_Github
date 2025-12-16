@@ -10,25 +10,31 @@ public class GerenciadorNotas {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String opcao;
-        do {
-            // Fluxo principal da Parte 1
-            int quantidadeAlunos = lerQuantidadeAlunos(scanner);
-            double[] todasNotas = lerNotasAlunos(scanner, quantidadeAlunos);
-            double media = calcularMedia(todasNotas, todasNotas.length);
-            gerarRelatorio(todasNotas, media);
 
-            // Pergunta para repetir
+        try {
             do {
-                System.out.print("Deseja processar outra turma? (s/n): ");
-                opcao = scanner.next().toLowerCase().trim();
-                if (!opcao.equals("s") && !opcao.equals("n")) {
-                    System.out.println("Por favor, digite 's' para sim ou 'n' para não.");
-                }
-            } while (!opcao.equals("s") && !opcao.equals("n"));
-        } while (opcao.equals("s"));
+                // Fluxo principal da Parte 1
+                int quantidadeAlunos = lerQuantidadeAlunos(scanner);
+                double[] todasNotas = lerNotasAlunos(scanner, quantidadeAlunos);
+                double media = calcularMedia(todasNotas, todasNotas.length);
+                gerarRelatorio(todasNotas, media);
 
-        System.out.println("Obrigado por usar o Gerenciador de Notas! Até logo!");
-        scanner.close();
+                // Pergunta para repetir
+                do {
+                    System.out.print("Deseja processar outra turma? (s/n): ");
+                    opcao = scanner.next().toLowerCase().trim();
+                    if (!opcao.equals("s") && !opcao.equals("n")) {
+                        System.out.println("Por favor, digite 's' para sim ou 'n' para não.");
+                    }
+                } while (!opcao.equals("s") && !opcao.equals("n"));
+            } while (opcao.equals("s"));
+        } catch (Exception e) {
+            System.err.println("Um erro inesperado ocorreu: " + e.getMessage());
+            System.out.println("O programa será encerrado.");
+        } finally {
+            System.out.println("Obrigado por usar o Gerenciador de Notas! Até logo!");
+            scanner.close();
+        }
     }
 
     private static void gerarRelatorio(double[] notas, double media) {
