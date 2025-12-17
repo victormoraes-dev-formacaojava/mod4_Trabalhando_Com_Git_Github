@@ -93,18 +93,6 @@ public class GerenciadorNotas {
         return menor;
     }
 
-    // E para feedback
-    private static void exibirFeedback(double media) {
-        System.out.printf("Média da turma: %.2f\n", media);
-        if (media >= 7.0) {
-            System.out.println("Parabéns! A turma está aprovada.");
-        } else if (media >= 5.0) {
-            System.out.println("Atenção: A turma precisa de recuperação.");
-        } else {
-            System.out.println("Alerta: A turma está reprovada. Hora de revisar!");
-        }
-    }
-
     // Método para ler e validar quantidade de alunos
     private static int lerQuantidadeAlunos(Scanner scanner) {
         int qtd;
