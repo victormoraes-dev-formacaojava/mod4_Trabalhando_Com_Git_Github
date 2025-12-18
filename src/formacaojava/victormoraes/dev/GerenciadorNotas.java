@@ -48,7 +48,7 @@ public class GerenciadorNotas {
 
         // Feedback da turma
         if (media >= 7.0) {
-            System.out.println("Situação: Turma aprovada!");
+            System.out.println("Situação: Parabéns! Turma aprovada!");
         } else if (media >= 5.0) {
             System.out.println("Situação: Turma em recuperação. Vamos ajustar!");
         } else {
